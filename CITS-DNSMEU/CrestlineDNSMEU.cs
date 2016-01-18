@@ -10,21 +10,33 @@ using System.Threading.Tasks;
 
 namespace Crestline.DNSMEU
 {
-    partial class CrestlineDNSMEU : ServiceBase
-    {
-        public CrestlineDNSMEU()
-        {
-            InitializeComponent();
-        }
+	partial class CrestlineDNSMEU : ServiceBase
+	{
+		private System.Timers.Timer timer;
 
-        protected override void OnStart(string[] args)
-        {
-            // TODO: Add code here to start your service.
-        }
+		public CrestlineDNSMEU()
+		{
+			InitializeComponent();
+			this.ServiceName = "Crestline DNSMEU";
+		}
 
-        protected override void OnStop()
-        {
-            // TODO: Add code here to perform any tear-down necessary to stop your service.
-        }
-    }
+		protected override void OnStart(string[] args)
+		{
+			this.timer = new System.Timers.Timer(15 * 60 * 1000);
+			this.timer.AutoReset = true;
+			this.timer.Elapsed += new System.Timers.ElapsedEventHandler(this.timer_Elapsed);
+			this.timer.Start();
+			this.timer_Elapsed(null, null);
+		}
+
+		protected override void OnStop()
+		{
+			this.timer.Stop();
+			this.timer = null;
+		}
+		private void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+		{
+			Helper.CheckForDNSUpdate();
+		}
+	}
 }

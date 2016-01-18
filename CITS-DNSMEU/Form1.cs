@@ -42,7 +42,7 @@ namespace Crestline.DNSMEU
 			string IP = await webClient.DownloadStringTaskAsync("http://www.dnsmadeeasy.com/myip.jsp");
 
 			txtIP.Text = IP;
-			Helper.UpdateIP(IP);
+			Helper.UpdateSetting(Helper.LastIP, IP);
 		}
 
 		private async void UpdateRecord()
@@ -53,8 +53,8 @@ namespace Crestline.DNSMEU
 
 		private void btnSaveSettings_Click(object sender, EventArgs e)
 		{
-			Helper.UpdateSetting("DNSRecordID", txtDNSRecordID.Text);
-			Helper.UpdateSetting("Password", txtPassword.Text);
+			Helper.UpdateSetting(Helper.DNSRecordID, txtDNSRecordID.Text);
+			Helper.UpdateSetting(Helper.Password, txtPassword.Text);
 		}
 	}
 }
