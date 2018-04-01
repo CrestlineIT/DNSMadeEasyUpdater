@@ -39,7 +39,7 @@ namespace Crestline.DNSMEU
 		private async void GetPublicIP()
 		{
 			var webClient = new WebClient();
-			string IP = await webClient.DownloadStringTaskAsync("http://www.dnsmadeeasy.com/myip.jsp");
+			string IP = await webClient.DownloadStringTaskAsync(Helper.IP_URL);
 
 			txtIP.Text = IP;
 			Helper.UpdateSetting(Helper.LastIP, IP);

@@ -16,6 +16,7 @@ namespace Crestline.DNSMEU
 		public const string DNSRecordID = "DNSRecordID";
 		public const string Password = "Password";
 		public const string ProductName = "Crestline DNSMEU";
+		public const string IP_URL = "https://www.crestline.net/myip.php";
 
 		public async static Task<string> UpdateDNSRecord(string DNSRecordId, string Password, string IP)
 		{
@@ -82,7 +83,7 @@ namespace Crestline.DNSMEU
 			}
 
 			var webClient = new WebClient();
-			var currentIP = webClient.DownloadString("http://www.dnsmadeeasy.com/myip.jsp");
+			var currentIP = webClient.DownloadString(Helper.IP_URL);
 
 			if (IsIPAddress(currentIP))
 			{
